@@ -1,0 +1,10 @@
+---
+- name: Provision the everything
+  hosts: all
+  remote_user: vagrant
+  become: yes
+  become_user: root
+
+  roles:
+    - apt-update
+

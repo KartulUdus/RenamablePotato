@@ -1,0 +1,3 @@
+---
+- name: updates a server
+  apt: update_cache=yes
