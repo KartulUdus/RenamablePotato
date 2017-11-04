@@ -1,0 +1,24 @@
+---
+
+- name: Wubba
+  unarchive:
+    src: 'https://wordpress.org/latest.zip'
+    dest: /var/www/html
+    remote_src: yes
+
+- name: lubba
+  copy: src=/vagrant/useful/wordpress/wp-config.php dest=/var/www/html/wordpress/wp-config.php owner=www-data
+
+- name: dubdub
+  file:
+    path: /var/www/html/wordpress
+    state: directory
+    mode: 0755
+    group: www-data
+    owner: root
+    recurse: yes
+
+- name: make logo dir
+  file: path=/var/www/html/wordpress/wp-content/uploads/2017/11 state=directory
+- name: move the logo
+  copy: src=/vagrant/useful/wordpress/353173483922128898.png dest=/var/www/html/wordpress/wp-content/uploads/2017/11/353173483922128898.png owner=www-data mode=0755

@@ -1,0 +1,33 @@
+---
+- name: Create ssl directories
+  file: path=/etc/ssl/{{item}} state=directory
+  with_items:
+    - csr
+    - crt
+
+- name: Generate privatekey
+  openssl_privatekey:
+      path: /etc/ssl/private/potato.pem
+
+
+- name: Generate an OpenSSL Certificate Signing Request
+  openssl_csr:
+    path: /etc/ssl/csr/potato.csr
+    privatekey_path: /etc/ssl/private/potato.pem
+    common_name: potato
+
+- name: move nginx wordpress
+  copy: src=/vagrant/useful/nginx/potato.conf dest=/etc/nginx/conf.d/potato.conf owner=root mode=0600
+
+- name: move nginx nginx
+  copy: src=/vagrant/useful/nginx/nginx.conf dest=/etc/nginx/nginx.conf owner=root mode=0600
+
+- name: Generate a Self Signed OpenSSL certificate
+  openssl_certificate:
+    path: /etc/ssl/crt/potato.crt
+    privatekey_path: /etc/ssl/private/potato.pem
+    csr_path: /etc/ssl/csr/potato.csr
+    provider: selfsigned
+
+- name: restart nginx
+  service: name=nginx state=restarted enabled=yes

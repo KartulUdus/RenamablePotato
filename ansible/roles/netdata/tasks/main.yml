@@ -1,0 +1,45 @@
+---
+  - name: NETDATA | Check if present
+    stat:
+      path: "{{netdata_install_dir}}/netdata"
+    register: netdata_present
+  - debug: msg="netdata not installed"
+    when: netdata_present.stat.exists == False
+  - debug: msg="netdata installed"
+    when: netdata_present.stat.exists == True
+
+  - name: NETDATA | Install package dependencies
+    apt:
+      pkg: "{{item}}"
+      state: present
+    with_items: "{{netdata_deps}}"
+    when: netdata_present.stat.exists == False
+    become: yes
+
+
+  - name: NETDATA | Clone or Pull for Install or Update
+    git:
+      repo: https://github.com/firehol/netdata.git
+      depth: "1"
+      dest: "/tmp/netdata"
+      version: "{{ netdata_version }}"
+    register: clone_or_pull
+  - debug: var=clone_or_pull
+
+  - name: NETDATA | Build and install
+    shell: "./netdata-installer.sh --install {{netdata_install_dir}} --dont-wait"
+    args:
+      chdir: /tmp/netdata
+    when: clone_or_pull.changed == True
+    become: yes
+
+  - name: NETDATA | Configure Systemd
+    command: "{{item}}"
+    with_items:
+      - killall netdata
+      - cp /tmp/netdata/system/netdata.service /etc/systemd/system/
+      - systemctl daemon-reload
+      - systemctl enable netdata
+      - service netdata restart
+    when: clone_or_pull.changed == True and netdata_systemd == True
+    become: true

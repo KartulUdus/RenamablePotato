@@ -1,0 +1,8 @@
+[Unit]
+Description=example service
+[Service]
+WorkingDirectory=/vagrant/
+User=root
+ExecStart= /usr/bin/node index.js
+Restart=always
+

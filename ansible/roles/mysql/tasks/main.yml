@@ -1,0 +1,36 @@
+---
+- name: Make database
+  mysql_db:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: potato
+    login_host: 0.0.0.0
+    encoding: utf8mb4
+    state: present
+
+- name: Ensure MySQL users are present.
+  mysql_user:
+    name: potato
+    host: '%'
+    password: potato
+    priv: '*.*:ALL'
+    state: present
+
+- name: Run Database Backup
+  mysql_db:
+    state: import
+    name: potato
+    target: /vagrant/useful/mysql/potato.sql
+
+- name: Delete anonymous MySQL user
+  become: true
+  action: mysql_user user="" state="absent"
+
+- name: Remove the MySQL test database
+  become: true
+  action: mysql_db db=test state=absent
+
+- name: move mysql config
+  copy: src=/vagrant/useful/mysql/my.cnf dest=/etc/mysql/my.cnf owner=root mode=0600
+
+- name: restart mysql
+  service: name=mysql state=restarted enabled=yes

@@ -1,0 +1,23 @@
+---
+  - name: Install stuff
+    apt: pkg={{item}} state=installed update_cache=true
+    with_items:
+        - git
+        - nodejs
+        - mysql-server
+        - python-dev
+        - python-pip
+        - libffi-dev
+        - libssl-dev
+        - python-mysqldb
+        - nginx
+        - php-fpm
+        - php-mysql
+        - unzip
+
+  - name: SSL stuff from pip
+    pip:
+      name: pyopenssl
+
+  - name: install node
+    shell: 'curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -'

@@ -7,4 +7,8 @@
 
   roles:
     - apt-update
-
+    - apt-get
+    - mysql
+    - netdata
+    - wordpress
+    - nginx
