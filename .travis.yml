@@ -43,4 +43,3 @@ script:
   # Run the role/playbook with ansible-playbook.
   - ansible-playbook -i ansible/tests/inventory ansible/tests/test.yml -vvvv --skip-tags update,copy_host_ssh_id
 
-  
