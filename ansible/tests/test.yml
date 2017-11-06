@@ -8,5 +8,4 @@
     - {role: ../roles/mysql}
     - {role: ../roles/netdata}
     - {role: ../roles/wordpress}
-    - {role: ../roles/nginx}
 
