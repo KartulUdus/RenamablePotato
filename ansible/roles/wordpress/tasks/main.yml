@@ -18,7 +18,5 @@
     owner: root
     recurse: yes
 
-- name: make logo dir
-  file: path=/var/www/html/wordpress/wp-content/uploads/2017/11 state=directory
-- name: move the logo
-  copy: src=/vagrant/useful/wordpress/353173483922128898.png dest=/var/www/html/wordpress/wp-content/uploads/2017/11/353173483922128898.png owner=www-data mode=0755
+- name: move the content
+  copy: src=/vagrant/useful/wordpress/wp-content/ dest=/var/www/html/wordpress/wp-content owner=www-data

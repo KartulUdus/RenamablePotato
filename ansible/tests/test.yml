@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+  roles:
+    - {role: ../roles/apt-update}
+    - {role: ../roles/apt-get}
+    - {role: ../roles/mysql}
+    - {role: ../roles/netdata}
+    - {role: ../roles/wordpress}
+    - {role: ../roles/nginx}
+

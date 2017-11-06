@@ -18,6 +18,3 @@
   - name: SSL stuff from pip
     pip:
       name: pyopenssl
-
-  - name: install node
-    shell: 'curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -'
