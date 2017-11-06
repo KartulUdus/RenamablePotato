@@ -1,7 +1,7 @@
 ---
 sudo: required
 dist: xenial
-
+hosts: all
 language: python
 python: "2.7"
 
