@@ -19,7 +19,9 @@ i'll rename this later
  * installs nginx as reverse proxy
 
  You can visit the pretty website you just launched on `http://192.168.11.100/`
+
  The admin panel is available via `http://192.168.11.100/wp-admin` un:pw = potato:potato
+
  Netdata nonitoring can be viewed in `http://192.168.11.100/monitor`
 
  To stop netdata:
