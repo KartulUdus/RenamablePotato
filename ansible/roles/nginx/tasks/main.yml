@@ -17,10 +17,10 @@
     common_name: potato
 
 - name: move nginx wordpress
-  copy: src=/vagrant/useful/nginx/potato.conf dest=/etc/nginx/conf.d/potato.conf owner=root mode=0600
+  copy: src=/vagrant/useful/nginx/potato.conf dest=/etc/nginx/conf.d/potato.conf owner=www-data mode=0600
 
 - name: move nginx nginx
-  copy: src=/vagrant/useful/nginx/nginx.conf dest=/etc/nginx/nginx.conf owner=root mode=0600
+  copy: src=/vagrant/useful/nginx/nginx.conf dest=/etc/nginx/nginx.conf owner=www-data mode=0600
 
 - name: Generate a Self Signed OpenSSL certificate
   openssl_certificate:
