@@ -13,7 +13,7 @@
   file:
     path: /var/www/html/wordpress
     state: directory
-    mode: 0755
+    mode: 0777
     group: www-data
     owner: root
     recurse: yes
